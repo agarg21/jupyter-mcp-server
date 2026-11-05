@@ -21,6 +21,7 @@ jobs:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
         python-version: ["3.10", "3.13"]
+        mode: [mcp-server, jupyter-server]
 
     steps:
       - name: Checkout
@@ -59,8 +60,7 @@ jobs:
           # is unambiguous — unlike the same tests swept up by the
           # bare pytest of the two runs below.
           make test-extensions
-          make test-mcp-server
-          make test-jupyter-server
+          make test-${{ matrix.mode }}
 
   test_examples:
     # Each example carries its own tests, driven by pydantic-ai's test models
